@@ -42,9 +42,12 @@ namespace cycle_test_detail {
                 BOOST_ASSERT(edge(*i, *j, g).second);
             }
             BOOST_ASSERT(edge(p.back(), p.front(), g).second);
+            (void)g;
         }
 
         std::size_t& cycles;
+    private:
+        cycle_validator& operator=(const cycle_validator&);
     };
 
     template <typename Graph, typename Algorithm>

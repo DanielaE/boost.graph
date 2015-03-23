@@ -37,9 +37,12 @@ struct cycle_validator
             BOOST_ASSERT(edge(*i, *j, g).second);
         }
         BOOST_ASSERT(edge(p.back(), p.front(), g).second);
+        (void)g;
     }
 
     size_t& cycles;
+private:
+    cycle_validator& operator=(const cycle_validator&);
 };
 
 template <typename Graph>

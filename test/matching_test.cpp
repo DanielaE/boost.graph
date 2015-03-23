@@ -132,7 +132,7 @@ void matching_test(std::size_t num_v, const std::string& graph_name)
   typedef typename graph_traits<Graph>::vertex_iterator vertex_iterator_t;
   typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor_t;
 
-  const std::size_t double_num_v = num_v * 2;
+  const unsigned double_num_v = static_cast<unsigned>(num_v * 2);
 
   bool all_tests_passed = true;
 
@@ -252,7 +252,7 @@ void matching_test(std::size_t num_v, const std::string& graph_name)
     }
   
   Graph h(double_num_v);
-  gabows_graph(h,num_v);
+  gabows_graph(h,static_cast<int>(num_v));
 
   vertex_index_installer<Graph>::install(h);
 
@@ -286,7 +286,7 @@ void matching_test(std::size_t num_v, const std::string& graph_name)
 
   typedef boost::mt19937 base_generator_type;
   base_generator_type generator(static_cast<unsigned int>(std::time(0)));
-  boost::uniform_int<> distribution(0, double_num_v-1);
+  boost::uniform_int<> distribution(0, static_cast<int>(double_num_v-1));
   boost::variate_generator<base_generator_type&, boost::uniform_int<> > rand_num(generator, distribution);
 
   std::size_t num_edges = 0;

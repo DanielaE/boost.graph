@@ -141,7 +141,7 @@ void two_graphs_common_spanning_trees_test()
 }
 
 
-int test_main ( int argc, char** argv )
+int test_main ( int, char** )
 {
   boost::two_graphs_common_spanning_trees_test();
   return EXIT_SUCCESS;

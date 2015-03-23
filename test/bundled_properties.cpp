@@ -18,6 +18,12 @@
 #include <algorithm>
 #include <iterator>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 using namespace std;
 using namespace boost;
 

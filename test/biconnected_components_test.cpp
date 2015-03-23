@@ -122,11 +122,11 @@ int test_main(int argc, char* argv[])
 {
   std::size_t n = 100;
   std::size_t m = 500;
-  std::size_t seed = 1;
+  uint32_t seed = 1;
 
   if (argc > 1) n = lexical_cast<std::size_t>(argv[1]);
   if (argc > 2) m = lexical_cast<std::size_t>(argv[2]);
-  if (argc > 3) seed = lexical_cast<std::size_t>(argv[3]);
+  if (argc > 3) seed = lexical_cast<uint32_t>(argv[3]);
 
   {
     Graph g(n);

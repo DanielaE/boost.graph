@@ -118,8 +118,8 @@ void test_graph(const Graph& graph) {
 int test_main(int argc, char* argv[])
 {
   std::size_t vertices_to_generate = 100,
-    edges_to_generate = 50,
-    random_seed = time(0);
+    edges_to_generate = 50;
+  uint32_t random_seed = static_cast<uint32_t>(time(0));
 
   // Parse command-line arguments
 
@@ -132,7 +132,7 @@ int test_main(int argc, char* argv[])
   }
 
   if (argc > 3) {
-    random_seed = lexical_cast<std::size_t>(argv[3]);
+    random_seed = lexical_cast<uint32_t>(argv[3]);
   }
 
   minstd_rand generator(random_seed);

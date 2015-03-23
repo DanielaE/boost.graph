@@ -58,7 +58,7 @@ fill_random_max_flow_graph(Graph& g, CapacityMap cap, ReverseEdgeMap rev, typena
   const int cap_high = 1000;
 
   //init random numer generator
-  minstd_rand gen(seed);
+  minstd_rand gen(static_cast<uint32_t>(seed));
   //generate graph
   generate_random_graph(g, n_verts, n_edges, gen);
 
@@ -357,7 +357,7 @@ class boykov_kolmogorov_test
           this->augment_direct_paths();
           check_invariants();
           //start the main-loop
-          while(true){
+          for(;;){
             bool path_found;
             tEdge connecting_edge;
             boost::tie(connecting_edge, path_found) = this->grow(); //find a path from source to sink

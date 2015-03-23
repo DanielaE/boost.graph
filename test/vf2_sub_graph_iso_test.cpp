@@ -31,6 +31,10 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/graph/graphviz.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4706) // assignment within conditional expression
+#endif
+
 using namespace boost;
 
 
@@ -44,6 +48,8 @@ struct random_functor {
     return x();
   }
   Generator& g;
+private:
+  random_functor& operator=(const random_functor&);
 };
 
 

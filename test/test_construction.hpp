@@ -10,6 +10,11 @@
 #include <boost/concept/assert.hpp>
 #include <utility>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable:4267) // narrowing conversion
+#endif
+
 /** @name Build Graph
  * Build the standard graph structure used in the remaining tests. Depending
  * on the mutability traits of the graph G, this may or may not add N vertices
@@ -19,7 +24,7 @@
 //@{
 // This will basically catch adjacency matrices, which don't get built.
 template <typename Graph, typename Add, typename Label>
-void build_graph(Graph& g, Add, Label)
+void build_graph(Graph&, Add, Label)
 { }
 
 // This matches MutableGraph, so just add some vertices.
@@ -59,7 +64,7 @@ void build_graph(Graph& g, boost::mpl::false_, boost::mpl::true_) {
  */
 //@{
 template <typename Graph, typename Add, typename Label>
-void build_property_graph(Graph const& g, Add, Label)
+void build_property_graph(Graph const&, Add, Label)
 { }
 
 template <typename Graph>
@@ -105,7 +110,7 @@ void connect_graph(Graph& g, VertexSet const& verts, boost::mpl::false_) {
 }
 
 template <typename Graph, typename VertexSet>
-void connect_graph(Graph& g, VertexSet const& verts, boost::mpl::true_) {
+void connect_graph(Graph& g, VertexSet const&, boost::mpl::true_) {
     using namespace boost;
     BOOST_CONCEPT_ASSERT((AdjacencyMatrixConcept<Graph>));
     // BOOST_CONCEPT_ASSERT((EdgeMutableGraphConcept<Graph>));
@@ -125,5 +130,9 @@ void connect_graph(Graph& g, VertexSet const& verts, boost::mpl::true_) {
     BOOST_ASSERT(edge_by_label(5, 0, g).second == false);
 }
 //@}
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif
