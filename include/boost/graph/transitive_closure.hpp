@@ -21,6 +21,11 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/concept/assert.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4996) // warning STL4008: std::not1(), std::not2(), std::unary_negate, and std::binary_negate are deprecated in C++17
+#endif
+
 namespace boost
 {
 
@@ -88,7 +93,7 @@ namespace boost
     iterator_property_map < cg_vertex *, VertexIndexMap, cg_vertex, cg_vertex& >
       component_number(&component_number_vec[0], index_map);
 
-    int num_scc = strong_components(g, component_number,
+    size_type num_scc = strong_components(g, component_number,
                                     vertex_index_map(index_map));
 
     std::vector < std::vector < vertex > >components;
@@ -369,5 +374,9 @@ namespace boost
 
 
 }                               // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_TRANSITIVE_CLOSURE_HPP

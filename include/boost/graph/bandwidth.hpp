@@ -51,9 +51,9 @@ namespace boost {
     vertices_size_type b = 0;
     typename graph_traits<Graph>::edge_iterator i, end;
     for (boost::tie(i, end) = edges(g); i != end; ++i) {
-      int f_i = get(index, source(*i, g));
-      int f_j = get(index, target(*i, g));
-      b = max BOOST_PREVENT_MACRO_SUBSTITUTION (b, vertices_size_type(abs(f_i - f_j)));
+      size_t f_i = get(index, source(*i, g));
+      size_t f_j = get(index, target(*i, g));
+      b = max BOOST_PREVENT_MACRO_SUBSTITUTION (b, vertices_size_type(abs(static_cast<ptrdiff_t>(f_i - f_j))));
     }
     return b;
   }

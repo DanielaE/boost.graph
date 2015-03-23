@@ -187,7 +187,7 @@ namespace boost {
         // The test here is equivalent to e_weight < 0 if m_combine has a
         // cancellation law, but always returns false when m_combine is a
         // projection operator.
-        if (m_compare(m_combine(m_zero, get(m_weight, e)), m_zero)) 
+        if (m_compare(m_combine(m_zero, static_cast<D>(get(m_weight, e))), m_zero)) 
             boost::throw_exception(negative_edge());
         // End of test for negative-weight edges.
 

@@ -25,6 +25,10 @@
 
 #include <boost/graph/iteration_macros.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS, boost::no_property, boost::property<boost::edge_weight_t, int> > undirected_graph;
 typedef boost::property_map<undirected_graph, boost::edge_weight_t>::type weight_map_type;
 typedef boost::property_traits<weight_map_type>::value_type weight_type;
@@ -75,7 +79,7 @@ class mas_edge_connectivity_visitor : public boost::default_mas_visitor {
 
   //template <typename Vertex> //, typename Graph>
   //void start_vertex(Vertex u, const Graph& g) {
-  void start_vertex(vertex_descriptor u, const Graph& g) {
+  void start_vertex(vertex_descriptor u, const Graph&) {
     *m_prev = *m_curr;
     *m_curr = u;
     //BOOST_TEST_MESSAGE( "Initializing Vertex(weight): " << u << "(" << *m_reach_weight << ")" );

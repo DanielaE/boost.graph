@@ -18,6 +18,10 @@
 #include <boost/random/linear_congruential.hpp>
 #include <boost/lexical_cast.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 using namespace boost;
 
 const double error_tolerance = 0.001;

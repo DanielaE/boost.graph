@@ -319,7 +319,7 @@ void gursoy_atun_layout(const VertexListAndIncidenceGraph& graph,
                         const Topology& space,
                         PositionMap position)
 {
-  gursoy_atun_layout(graph, space, position, num_vertices(graph));
+  gursoy_atun_layout(graph, space, position, static_cast<int>(num_vertices(graph)));
 }
 
 template<typename VertexListAndIncidenceGraph, typename Topology,
@@ -338,7 +338,7 @@ gursoy_atun_layout(const VertexListAndIncidenceGraph& graph,
   std::pair<double, double> learn(0.8, 0.2);
   gursoy_atun_layout(graph, space, position,
                      choose_param(get_param(params, iterations_t()),
-                                  num_vertices(graph)),
+                                  static_cast<int>(num_vertices(graph))),
                      choose_param(get_param(params, diameter_range_t()), 
                                   diam).first,
                      choose_param(get_param(params, diameter_range_t()), 
