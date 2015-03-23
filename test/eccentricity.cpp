@@ -77,6 +77,7 @@ void test_undirected()
     all_eccentricities(g, dm, em);
     int rad = radius(g, em);
     int dia = diameter(g, em);
+    (void)rad;(void)dia;
 
     BOOST_ASSERT(em[v[0]] == 2);
     BOOST_ASSERT(em[v[1]] == 3);
@@ -119,9 +120,11 @@ void test_directed()
     all_eccentricities(g, dm, em);
     int rad = radius(g, em);
     int dia = diameter(g, em);
+    (void)rad;(void)dia;
 
     int inf = numeric_values<int>::infinity();
-    BOOST_ASSERT(em[v[0]] == inf);
+     (void)inf;
+   BOOST_ASSERT(em[v[0]] == inf);
     BOOST_ASSERT(em[v[1]] == inf);
     BOOST_ASSERT(em[v[2]] == inf);
     BOOST_ASSERT(em[v[3]] == 4);

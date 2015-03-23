@@ -18,18 +18,20 @@ struct test_callback {
   test_callback(bool &got_hit, bool stop) : got_hit(got_hit), stop(stop) { }
 
   template<typename Map1To2, typename Map2To1>
-  bool operator()(Map1To2 map1to2, Map2To1 map2to1) {
+  bool operator()(Map1To2, Map2To1) {
     got_hit = true;
     return stop;
   }
 
   bool &got_hit;
   bool stop;
+private:
+  test_callback& operator=(const test_callback&);
 };
 
 struct false_predicate {
   template<typename VertexOrEdge1, typename VertexOrEdge2>
-  bool operator()(VertexOrEdge1 ve1, VertexOrEdge2 ve2) const {
+  bool operator()(VertexOrEdge1, VertexOrEdge2) const {
     return false;
   }
 };
@@ -187,7 +189,7 @@ void test_return_value() {
   }
 }
 
-int test_main(int argc, char* argv[]) {
+int test_main(int, char*[]) {
   test_empty_graph_cases();
   test_return_value();
   return 0;

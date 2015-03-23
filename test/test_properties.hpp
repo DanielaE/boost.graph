@@ -27,7 +27,7 @@ void test_graph_bundle(Graph& g, boost::mpl::true_) {
 }
 
 template<typename Graph>
-void test_graph_bundle(Graph& g, boost::mpl::false_)
+void test_graph_bundle(Graph&, boost::mpl::false_)
 { }
 
 /** @name Test Vertex Bundle

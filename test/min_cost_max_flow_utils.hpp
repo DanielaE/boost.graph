@@ -63,6 +63,8 @@ struct SampleGraph {
         Capacity & m_cap;
         ResidualCapacity & m_resCap;
         Reversed & m_rev;
+
+        EdgeAdder& operator=(const EdgeAdder&);	
     };
 
 

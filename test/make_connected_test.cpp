@@ -109,8 +109,8 @@ int test_main(int, char* [])
     LLgraph_t;
 
   VVgraph_t gVV;
-  std::size_t num_cycles = 10;
-  std::size_t cycle_size = 10;
+  int num_cycles = 10;
+  int cycle_size = 10;
   make_disconnected_cycles(gVV, num_cycles, cycle_size);
   reset_edge_index(gVV);
   std::vector<int> gVV_components(num_vertices(gVV));

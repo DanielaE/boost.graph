@@ -19,6 +19,11 @@
 #include <boost/graph/adjacency_matrix.hpp>
 #include <boost/test/minimal.hpp>
 #include <algorithm>
+
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
+
 using namespace boost;
 
 template<typename T>
