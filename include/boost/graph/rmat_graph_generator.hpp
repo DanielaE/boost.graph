@@ -24,6 +24,11 @@
 #include <boost/type_traits/is_same.hpp>
 // #include <boost/test/floating_point_comparison.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 using boost::shared_ptr;
 using boost::uniform_01;
 
@@ -149,7 +154,7 @@ namespace boost {
     rmat_iterator(RandomGenerator& gen, vertices_size_type n,
                   edges_size_type m, double a, double b, double c,
                   double d, bool permute_vertices = true)
-      : gen(), n(n), a(a), b(b), c(c), d(d), edge(m),
+      : gen(), n(n), a(a), b(b), c(c), d(d), edge(static_cast<int>(m)),
         permute_vertices(permute_vertices),
         SCALE(int_log2(n))
 
@@ -591,5 +596,9 @@ namespace boost {
 #ifdef BOOST_GRAPH_USE_MPI
 #include <boost/graph/distributed/rmat_graph_generator.hpp>
 #endif // BOOST_GRAPH_USE_MPI
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_RMAT_GENERATOR_HPP

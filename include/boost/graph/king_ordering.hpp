@@ -15,6 +15,11 @@
 #include <boost/graph/detail/sparse_ordering.hpp>
 #include <boost/graph/graph_utility.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
+
 /*
   King Algorithm for matrix reordering
 */
@@ -63,7 +68,7 @@ namespace boost {
             put(degree, v, get(degree, v) - 1);
     
             if (colors[get(vertex_map, v)] == 1) {
-              percolate_up<Vertex>(get(vertex_map, v), i);            
+              percolate_up<Vertex>(static_cast<int>(get(vertex_map, v)), i);
             }
           }
           
@@ -76,7 +81,7 @@ namespace boost {
       void examine_vertex(Vertex u, const Graph&) {
         
         *(*permutation)++ = u;
-        index_begin = Qptr->size();
+        index_begin = static_cast<int>(Qptr->size());
         
       }
     protected:
@@ -86,7 +91,7 @@ namespace boost {
       template <typename Vertex>
       void percolate_down(int offset){
         int heap_last = index_begin + offset;
-        int heap_first = Qptr->size() - 1;
+        int heap_first = static_cast<int>(Qptr->size() - 1);
         
         //pop_heap functionality:
         //swap first, last
@@ -97,13 +102,13 @@ namespace boost {
 
         //set drifter, children
         int drifter = heap_first;
-        int drifter_heap = Qptr->size() - drifter;
+        int drifter_heap = static_cast<int>(Qptr->size() - drifter);
 
         int right_child_heap = drifter_heap * 2 + 1;
-        int right_child = Qptr->size() - right_child_heap;
+        int right_child = static_cast<int>(Qptr->size() - right_child_heap);
 
         int left_child_heap = drifter_heap * 2;
-        int left_child = Qptr->size() - left_child_heap;
+        int left_child = static_cast<int>(Qptr->size() - left_child_heap);
 
         //check that we are staying in the heap
         bool valid = (right_child < heap_last) ? false : true;
@@ -120,13 +125,13 @@ namespace boost {
 
           //update the values, run again, as necessary
           drifter = smallest_child;
-          drifter_heap = Qptr->size() - drifter;
+          drifter_heap = static_cast<int>(Qptr->size() - drifter);
 
           right_child_heap = drifter_heap * 2 + 1;
-          right_child = Qptr->size() - right_child_heap;
+          right_child = static_cast<int>(Qptr->size() - right_child_heap);
 
           left_child_heap = drifter_heap * 2;
-          left_child = Qptr->size() - left_child_heap;
+          left_child = static_cast<int>(Qptr->size() - left_child_heap);
 
           valid = (right_child < heap_last) ? false : true;
 
@@ -144,9 +149,9 @@ namespace boost {
       void percolate_up(int vertex, int offset){
         
         int child_location = Qlocation[vertex];
-        int heap_child_location = Qptr->size() - child_location;
+        int heap_child_location = static_cast<int>(Qptr->size() - child_location);
         int heap_parent_location = (int)(heap_child_location/2);
-        unsigned parent_location = Qptr->size() - heap_parent_location; 
+        unsigned parent_location = static_cast<unsigned>(Qptr->size() - heap_parent_location); 
 
         bool valid = (heap_parent_location != 0 && child_location > index_begin + offset && 
                       parent_location < Qptr->size());
@@ -162,7 +167,7 @@ namespace boost {
           child_location = parent_location;
           heap_child_location = heap_parent_location;
           heap_parent_location = (int)(heap_child_location/2);
-          parent_location = Qptr->size() - heap_parent_location; 
+          parent_location = static_cast<unsigned>(Qptr->size() - heap_parent_location); 
           valid = (heap_parent_location != 0 && child_location > index_begin + offset);
         }
       }
@@ -312,5 +317,8 @@ namespace boost {
 
 } // namespace boost
 
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_KING_HPP

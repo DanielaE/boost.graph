@@ -55,7 +55,7 @@ struct one_bit_color_map
     : n(n), index(index), data(new unsigned char[(n + bits_per_char - 1) / bits_per_char])
   {
     // Fill to white
-    std::fill(data.get(), data.get() + (n + bits_per_char - 1) / bits_per_char, 0);
+    std::fill(data.get(), data.get() + (n + bits_per_char - 1) / bits_per_char, static_cast<unsigned char>(0u));
   }
 };
 

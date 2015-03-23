@@ -103,7 +103,7 @@ all_degree_centralities(const Graph& g, CentralityMap cent, Measure measure)
 
     VertexIterator i, end;
     for(boost::tie(i, end) = vertices(g); i != end; ++i) {
-        Centrality c = degree_centrality(g, *i, measure);
+        Centrality c = static_cast<Centrality>(degree_centrality(g, *i, measure));
         put(cent, *i, c);
     }
 }

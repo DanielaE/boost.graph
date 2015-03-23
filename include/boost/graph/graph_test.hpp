@@ -23,6 +23,11 @@
 
 // UNDER CONSTRUCTION 
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
+
 namespace boost {
 
   template <typename Graph>
@@ -378,6 +383,10 @@ namespace boost {
 
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #include <boost/graph/iteration_macros_undef.hpp>
 

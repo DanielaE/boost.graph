@@ -14,6 +14,10 @@
 #include <cstdlib>
 #include <boost/graph/adjacency_list.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4244) // narrowing
+#endif
 
 namespace boost {
 struct SampleGraph {
@@ -140,6 +144,10 @@ struct SampleGraph {
     }       
 };
 } //boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif /* SAMPLE_GRAPH_UNDIRECTED_HPP */
 

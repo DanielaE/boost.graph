@@ -12,6 +12,11 @@
 
 #include <boost/assert.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
   namespace graph {
     namespace detail {
@@ -289,5 +294,9 @@ struct project2nd {
     }
   }
 }
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_DETAIL_HISTOGRAM_SORT_HPP

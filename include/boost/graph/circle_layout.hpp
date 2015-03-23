@@ -16,6 +16,12 @@
 #include <boost/graph/topology.hpp>
 #include <boost/static_assert.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+#endif
+
 namespace boost {
   /** 
    * \brief Layout the graph with the vertices at the points of a regular
@@ -54,5 +60,9 @@ namespace boost {
     }
   }
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_CIRCLE_LAYOUT_HPP

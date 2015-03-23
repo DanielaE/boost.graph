@@ -22,6 +22,11 @@
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/named_function_params.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -179,8 +184,8 @@ namespace boost {
               ++push_count;
               FlowValue delta = get(residual_capacity, a);
               put(residual_capacity, a, get(residual_capacity, a) - delta);
-              edge_descriptor rev = get(reverse_edge, a);
-              put(residual_capacity, rev, get(residual_capacity, rev) + delta);
+              edge_descriptor rev_ = get(reverse_edge, a);
+              put(residual_capacity, rev_, get(residual_capacity, rev_) + delta);
               put(excess_flow, tgt, get(excess_flow, tgt) + delta);
             }
           }
@@ -741,6 +746,10 @@ namespace boost {
   }
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_PUSH_RELABEL_MAX_FLOW_HPP
 

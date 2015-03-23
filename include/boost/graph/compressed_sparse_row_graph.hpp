@@ -47,6 +47,11 @@
 #include <boost/property_map/transform_value_property_map.hpp>
 #include <boost/mpl/print.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
 // A tag type indicating that the graph in question is a compressed
@@ -1602,5 +1607,9 @@ put(graph_all_t,
 #undef BOOST_BIDIR_CSR_GRAPH_TEMPLATE_PARMS
 
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_COMPRESSED_SPARSE_ROW_GRAPH_HPP

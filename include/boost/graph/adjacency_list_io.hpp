@@ -23,6 +23,11 @@
 // cout << write( G );
 // cout << write( G, NodePropertySubset(), EdgepropertySubset() );
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
 
 /* outline
@@ -307,7 +312,6 @@ struct EdgePrinter
 protected:
 
         const Graph& graph;
-        
 };
 
 template<class Graph, class V, class E>
@@ -403,4 +407,9 @@ write( const adjacency_list<EL,VL,D,VP,EP,GP>& g )
 // user methods
 //=========================================================================
 }// boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
+
 #endif

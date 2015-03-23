@@ -196,7 +196,7 @@ namespace boost
     degree_size_vector_t degree_vector;
     vertex_to_v_size_map_t marked;
     vertex_to_degree_size_map_t degree;
-    
+
   };
 
 

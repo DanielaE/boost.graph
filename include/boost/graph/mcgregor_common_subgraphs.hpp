@@ -22,6 +22,12 @@
 #include <boost/graph/properties.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+# pragma warning(disable: 4701) // potentially uninitialized local variable
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -1133,5 +1139,9 @@ namespace boost {
   }
   
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_MCGREGOR_COMMON_SUBGRAPHS_HPP
