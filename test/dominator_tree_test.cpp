@@ -256,7 +256,7 @@ int test_main(int, char*[])
     {
       if (get(domTreePredMap, *uItr) != graph_traits<G>::null_vertex())
         idom[get(indexMap, *uItr)] =
-          get(indexMap, get(domTreePredMap, *uItr));
+          static_cast<int>(get(indexMap, get(domTreePredMap, *uItr)));
       else
         idom[get(indexMap, *uItr)] = (numeric_limits<int>::max)();
     }
@@ -280,7 +280,7 @@ int test_main(int, char*[])
     {
       if (get(domTreePredMap, *uItr) != graph_traits<G>::null_vertex())
         idom2[get(indexMap, *uItr)] =
-          get(indexMap, get(domTreePredMap, *uItr));
+          static_cast<int>(get(indexMap, get(domTreePredMap, *uItr)));
       else
         idom2[get(indexMap, *uItr)] = (numeric_limits<int>::max)();
     }

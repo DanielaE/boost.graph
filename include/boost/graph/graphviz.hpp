@@ -34,6 +34,11 @@
 #include <boost/xpressive/xpressive_static.hpp>
 #include <boost/foreach.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
 
   template <typename directed_category>
@@ -953,6 +958,10 @@ bool read_graphviz(std::istream& in, MutableGraph& graph,
 
 #ifdef BOOST_GRAPH_USE_MPI
 #  include <boost/graph/distributed/graphviz.hpp>
+#endif
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
 #endif
 
 #endif // BOOST_GRAPHVIZ_HPP

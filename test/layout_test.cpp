@@ -18,6 +18,12 @@
 #include <boost/limits.hpp>
 #include <fstream>
 #include <string>
+
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+#endif
+
 using namespace boost;
 
 enum vertex_position_t { vertex_position };

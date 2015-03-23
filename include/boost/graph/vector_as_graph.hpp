@@ -180,7 +180,7 @@ namespace boost {
   vertices(const std::vector<EdgeList, Alloc>& v)
   {
     typedef boost::counting_iterator<typename EdgeList::value_type> Iter;
-    return std::make_pair(Iter(0), Iter(v.size()));
+    return std::make_pair(Iter(0), Iter(EdgeList::value_type(v.size())));
   }
 
   template <class EdgeList, class Alloc>
@@ -273,7 +273,7 @@ namespace boost {
   add_vertex(std::vector<EdgeList, Allocator>& g)
   {
     g.resize(g.size()+1);
-    return g.size()-1;
+    return static_cast<EdgeList::value_type>(g.size()-1);
   }
 
   template<class EdgeList, class Allocator>
@@ -283,7 +283,7 @@ namespace boost {
   {
     g[u].clear();
     for (std::size_t i = 0; i < g.size(); ++i)
-      remove_edge(i, u, g);
+      remove_edge(EdgeList::value_type(i), u, g);
   }
 
   template<class EdgeList, class Allocator>

@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(path_augmentation_test) {
     Graph g;
     boost::SampleGraph::getSampleGraph(g, s, t);
 
-    int N = boost::num_vertices(g);
+    size_t N = boost::num_vertices(g);
     std::vector<int> dist(N);
     std::vector<int> dist_prev(N);
     typedef boost::graph_traits<Graph>::edge_descriptor edge_descriptor;

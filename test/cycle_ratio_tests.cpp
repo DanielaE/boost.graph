@@ -16,6 +16,10 @@
 
 #include <boost/test/minimal.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 /**
  * @author Dmitry Bufistov
  * @author Andrey Parfenov
@@ -214,6 +218,7 @@ struct my_float2 : boost::mcr_float<>
 int test_main(int argc, char* argv[])
 {
   assert (argc >= 2);
+  (void)argc;
   using std::endl; using std::cout;
   const double epsilon = 0.005;
   double min_cr, max_cr; ///Minimum and maximum cycle ratio

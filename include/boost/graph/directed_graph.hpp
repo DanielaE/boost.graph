@@ -323,7 +323,7 @@ private:
         typedef typename property_map<graph_type, vertex_index_t>::type IndexMap;
         IndexMap indices = get(vertex_index, m_graph);
         for( ; i != end; ++i) {
-            indices[*i] = n++;
+            indices[*i] = static_cast<IndexMap::value_type>(n++);
         }
         return n;
     }
@@ -336,7 +336,7 @@ private:
         typedef typename property_map<graph_type, edge_index_t>::type IndexMap;
         IndexMap indices = get(edge_index, m_graph);
         for( ; i != end; ++i) {
-            indices[*i] = n++;
+            indices[*i] = static_cast<IndexMap::value_type>(n++);
         }
         return n;
     }

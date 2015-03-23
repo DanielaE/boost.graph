@@ -22,6 +22,12 @@
 #include <boost/graph/planar_detail/bucket_sort.hpp>
 
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
 
 namespace boost
 {
@@ -2007,5 +2013,9 @@ namespace boost
 
 
 } //namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif //__BOYER_MYRVOLD_IMPL_HPP__

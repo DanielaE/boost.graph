@@ -37,7 +37,7 @@
 using namespace std;
 using namespace boost;
 
-int test_main(int argc, char** argv)
+int test_main(int, char** argv)
 {
     typedef adjacency_list<vecS,vecS,directedS, 
                            property<vertex_color_t,int,

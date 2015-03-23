@@ -18,6 +18,10 @@
 
 // UNDER CONSTRUCTION
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 int test_main(int, char*[])
 {
   using namespace boost;

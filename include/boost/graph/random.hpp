@@ -39,7 +39,7 @@ namespace boost {
     #if BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT(0x581))
       std::size_t n = std::random( num_vertices(g) );
     #else
-      uniform_int<> distrib(0, num_vertices(g)-1);
+      uniform_int<> distrib(0, static_cast<int>(num_vertices(g)-1));
       variate_generator<RandomNumGen&, uniform_int<> > rand_gen(gen, distrib);
       std::size_t n = rand_gen();
     #endif
@@ -58,7 +58,7 @@ namespace boost {
       typename graph_traits<Graph>::edges_size_type
         n = std::random( num_edges(g) );
     #else
-      uniform_int<> distrib(0, num_edges(g)-1);
+      uniform_int<> distrib(0, static_cast<int>(num_edges(g)-1));
       variate_generator<RandomNumGen&, uniform_int<> > rand_gen(gen, distrib);
       typename graph_traits<Graph>::edges_size_type
         n = rand_gen();
@@ -83,6 +83,11 @@ namespace boost {
     return *it;
   }
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4715) // not all control paths return a value
+#endif
+
   template <typename Graph, typename WeightMap, typename RandomNumGen>
   typename graph_traits<Graph>::edge_descriptor
   weighted_random_out_edge(Graph& g, typename graph_traits<Graph>::vertex_descriptor src, WeightMap weight, RandomNumGen& gen) {
@@ -104,6 +109,10 @@ namespace boost {
     }
     BOOST_ASSERT (false); // Should not get here
   }
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
   namespace detail {
     class dummy_property_copier {

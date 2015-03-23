@@ -21,13 +21,13 @@ void test_graph_bundle(Graph& g, boost::mpl::true_) {
   GraphBundle& b2 = get_property(g);
   ignore(b1); ignore(b2);
 
-  GraphBundle const& cb1 = as_const(g)[graph_bundle];
+  GraphBundle const& cb1 = ::as_const(g)[graph_bundle];
   GraphBundle const& cb2 = get_property(g);
   ignore(cb1); ignore(cb2);
 }
 
 template<typename Graph>
-void test_graph_bundle(Graph& g, boost::mpl::false_)
+void test_graph_bundle(Graph&, boost::mpl::false_)
 { }
 
 /** @name Test Vertex Bundle
