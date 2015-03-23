@@ -224,6 +224,8 @@ private:
 
     Graph& graph;
     extract_name_type extract;
+
+    extract_name_from_vertex& operator=(const extract_name_from_vertex&);
   };
 
 public:

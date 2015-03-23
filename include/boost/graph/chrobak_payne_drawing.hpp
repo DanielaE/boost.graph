@@ -16,6 +16,10 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/property_map/property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
 
 namespace boost
 {
@@ -28,7 +32,7 @@ namespace boost
              typename VertexTo1DCoordMap>
     void accumulate_offsets(typename graph_traits<Graph>::vertex_descriptor v,
                             std::size_t offset,
-                            const Graph& g,
+                            const Graph&,
                             VertexTo1DCoordMap x,
                             VertexTo1DCoordMap delta_x,
                             VertexToVertexMap left,
@@ -275,5 +279,9 @@ namespace boost
   
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif //__CHROBAK_PAYNE_DRAWING_HPP__

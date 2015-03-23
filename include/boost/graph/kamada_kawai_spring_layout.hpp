@@ -21,6 +21,13 @@
 #include <boost/limits.hpp>
 #include <boost/config/no_tr1/cmath.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
   namespace detail { namespace graph {
     /**
@@ -356,6 +363,9 @@ namespace boost {
       DistanceMatrix distance;
       SpringStrengthMatrix spring_strength;
       PartialDerivativeMap partial_derivatives;
+
+    private:
+      kamada_kawai_spring_layout_impl& operator=(const kamada_kawai_spring_layout_impl&);
     };
   } } // end namespace detail::graph
 
@@ -618,5 +628,9 @@ namespace boost {
                                       get(vertex_index, g));
   }
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_KAMADA_KAWAI_SPRING_LAYOUT_HPP

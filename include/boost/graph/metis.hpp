@@ -161,6 +161,8 @@ class metis_distribution
   iterator end()   { return vertices.end(); }
 
  private:
+  metis_distribution& operator=(const metis_distribution&);
+
   std::istream& in;
   process_id_type my_id;
   std::vector<process_id_type> vertices;
@@ -198,7 +200,7 @@ metis_reader::edge_iterator& metis_reader::edge_iterator::operator++()
 BOOST_GRAPH_METIS_INLINE_KEYWORD
 void metis_reader::edge_iterator::advance(bool skip_initial_read)
 {
-  do {
+  for(;;) {
 
     if (!skip_initial_read) {
       // Try to read the next edge
@@ -237,7 +239,7 @@ void metis_reader::edge_iterator::advance(bool skip_initial_read)
 
     // Successive iterations will pick up edges for this vertex.
     skip_initial_read = false;
-  } while (true);
+  }
 }
 
 BOOST_GRAPH_METIS_INLINE_KEYWORD

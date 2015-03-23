@@ -133,6 +133,8 @@ namespace boost {
     filtered_graph_base(const G& g) : m_g(g) { }
     //protected:
     const G& m_g;
+  private:
+    filtered_graph_base& operator=(const filtered_graph_base&);
   };
 
   template <typename Graph, 

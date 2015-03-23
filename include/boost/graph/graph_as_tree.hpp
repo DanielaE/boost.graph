@@ -25,6 +25,8 @@ namespace boost {
   class graph_as_tree_base
   {
     typedef Derived Tree;
+    graph_as_tree_base& operator=(const graph_as_tree_base&);
+
   public:
     typedef Node node_descriptor;
     typedef ChIt children_iterator;
@@ -60,6 +62,8 @@ namespace boost {
   {
     typedef graph_as_tree self;
     typedef graph_as_tree_base<Graph, Node, ChIt, self> super;
+    graph_as_tree& operator=(const graph_as_tree&);
+
   public:
     graph_as_tree(Graph& g, Node root) : super(g, root) {  }
     

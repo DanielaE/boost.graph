@@ -55,7 +55,7 @@ namespace boost {
     path.clear();
     path.push_back(s);
     put(color, s, color_gen::gray());
-    while (true) {
+    for (;;) {
       edge_descriptor e = next_edge(s, g);
       vertex_descriptor t = target(e, g);
       color_t t_color = get(color, t);
@@ -96,6 +96,8 @@ namespace boost {
       if (out_degree(src, g) == 0) throw loop_erased_random_walk_stuck();
       return boost::random_out_edge(g, src, gen);
     }
+    private:
+    unweighted_random_out_edge_gen& operator=(const unweighted_random_out_edge_gen&);
   };
 
   template <typename Graph, typename WeightMap, typename Gen>
@@ -113,6 +115,8 @@ namespace boost {
       if (out_degree(src, g) == 0) throw loop_erased_random_walk_stuck();
       return boost::weighted_random_out_edge(g, src, weight, gen);
     }
+    private:
+    weighted_random_out_edge_gen& operator=(const weighted_random_out_edge_gen&);
   };
 }
 

@@ -153,6 +153,9 @@ namespace boost
       ArticulationVector& is_articulation_point;
       IndexMap index_map;
       DFSVisitor vis;
+
+    private:
+      biconnected_components_visitor& operator=(const biconnected_components_visitor&);
     };
 
   template<typename Graph, typename ComponentMap, typename OutputIterator,

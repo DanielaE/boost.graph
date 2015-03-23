@@ -163,6 +163,8 @@ class reverse_graph {
     // would be private, but template friends aren't portable enough.
  // private:
     GraphRef m_g;
+  private:
+    reverse_graph& operator=(const reverse_graph&);
 };
 
 

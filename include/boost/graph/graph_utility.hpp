@@ -104,6 +104,8 @@ namespace boost {
     }
     Vertex m_u;
     const Graph& m_g;
+  private:
+    incident_to_predicate& operator=(const incident_to_predicate&);
   };
   template <typename Vertex, typename Graph>
   inline incident_to_predicate<Vertex, Graph>
@@ -142,6 +144,8 @@ namespace boost {
     }
     Vertex m_u, m_v;
     const Graph& m_g;
+  private:
+    connects_predicate& operator=(const connects_predicate&);
   };
   template <typename Vertex, typename Graph>
   inline connects_predicate<Vertex, Graph>

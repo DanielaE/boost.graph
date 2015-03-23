@@ -22,6 +22,11 @@
 #include <boost/graph/one_bit_color_map.hpp>
 #include <boost/bind.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -377,5 +382,9 @@ namespace boost {
     return find_odd_cycle (graph, get (vertex_index, graph), result);
   }
 }
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif /// BOOST_GRAPH_BIPARTITE_HPP

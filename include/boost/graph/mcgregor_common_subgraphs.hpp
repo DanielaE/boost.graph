@@ -22,6 +22,11 @@
 #include <boost/graph/properties.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -67,6 +72,8 @@ namespace boost {
   private:
     const PropertyMapFirst m_property_map1;
     const PropertyMapSecond m_property_map2;
+
+    property_map_equivalent& operator=(const property_map_equivalent&);
   };
 
   // Returns a property_map_equivalent object that compares the values
@@ -610,6 +617,8 @@ namespace boost {
       const VertexIndexMapSecond m_vindex_map2;
       shared_ptr<SubGraphList> m_subgraphs;
       SubGraphCallback m_user_callback;
+
+      unique_subgraph_interceptor& operator=(const unique_subgraph_interceptor&);
     };
     
   } // namespace detail
@@ -795,6 +804,8 @@ namespace boost {
       shared_ptr<SubGraphList> m_subgraphs;
       shared_ptr<VertexSizeFirst> m_largest_size_so_far;
       SubGraphCallback m_user_callback;
+
+      maximum_subgraph_interceptor& operator=(const maximum_subgraph_interceptor&);
     };
     
   } // namespace detail
@@ -998,6 +1009,8 @@ namespace boost {
       shared_ptr<SubGraphList> m_subgraphs;
       shared_ptr<VertexSizeFirst> m_largest_size_so_far;
       SubGraphCallback m_user_callback;
+
+      unique_maximum_subgraph_interceptor& operator=(const unique_maximum_subgraph_interceptor&);
     };
     
   } // namespace detail
@@ -1133,5 +1146,9 @@ namespace boost {
   }
   
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_MCGREGOR_COMMON_SUBGRAPHS_HPP

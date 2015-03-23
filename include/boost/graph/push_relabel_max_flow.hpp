@@ -22,6 +22,11 @@
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/named_function_params.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -678,6 +683,8 @@ namespace boost {
       inline long beta() { return 12; }
 
       long work_since_last_update;
+
+      push_relabel& operator=(const push_relabel&);
     };
 
   } // namespace detail
@@ -741,6 +748,10 @@ namespace boost {
   }
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_PUSH_RELABEL_MAX_FLOW_HPP
 

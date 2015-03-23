@@ -16,6 +16,15 @@
 #include <boost/concept/assert.hpp>
 
 #include <boost/concept/detail/concept_def.hpp>
+
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4510) // default constructor could not be generated
+# pragma warning(disable: 4512) // assignment operator could not be generated
+# pragma warning(disable: 4610) // class can never be instantiated - user defined constructor required
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
     namespace concepts {
         BOOST_concept(CycleVisitor,(Visitor)(Path)(Graph))
@@ -116,6 +125,8 @@ struct min_max_cycle_visitor
     }
     std::size_t& minimum;
     std::size_t& maximum;
+private:
+    min_max_cycle_visitor& operator=(const min_max_cycle_visitor&);
 };
 
 inline min_max_cycle_visitor
@@ -372,5 +383,9 @@ tiernan_circumference(const Graph& g)
 { return tiernan_girth_and_circumference(g).second; }
 
 } /* namespace boost */
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif

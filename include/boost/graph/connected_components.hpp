@@ -49,6 +49,8 @@ namespace boost {
     protected:
       ComponentsMap m_component;
       comp_type& m_count;
+
+      components_recorder& operator=(const components_recorder&);
     };
 
   } // namespace detail

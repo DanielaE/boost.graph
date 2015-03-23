@@ -74,6 +74,8 @@ namespace boost {
         return get(discover_time, u) < get(discover_time,v) ? u : v;
       }
 
+      tarjan_scc_visitor& operator=(const tarjan_scc_visitor&);
+
       comp_type& c;
       ComponentMap comp;
       RootMap root;

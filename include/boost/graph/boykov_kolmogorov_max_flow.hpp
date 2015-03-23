@@ -49,6 +49,11 @@
 #include <boost/graph/lookup_edge.hpp>
 #include <boost/concept/assert.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 // The algorithm impelemented here is described in:
 //
 // Boykov, Y., Kolmogorov, V. "An Experimental Comparison of Min-Cut/Max-Flow
@@ -716,6 +721,8 @@ class bk_max_flow {
       vertex_descriptor m_last_grow_vertex;
       out_edge_iterator m_last_grow_edge_it;
       out_edge_iterator m_last_grow_edge_end;
+
+      bk_max_flow& operator=(const bk_max_flow&);
 };
 
 } //namespace boost::detail
@@ -868,6 +875,10 @@ boykov_kolmogorov_max_flow(Graph& g,
 }
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_BOYKOV_KOLMOGOROV_MAX_FLOW_HPP
 

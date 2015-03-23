@@ -16,6 +16,12 @@
 #include <boost/graph/iteration_macros.hpp>
 #include <boost/property_map/property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+#endif
+
 namespace boost {
 
 // r_c_shortest_paths_label struct
@@ -195,7 +201,7 @@ void r_c_shortest_paths_dispatch
   pareto_optimal_resource_containers.clear();
   pareto_optimal_solutions.clear();
 
-  size_t i_label_num = 0;
+  unsigned long i_label_num = 0;
   typedef 
     typename 
       Label_Allocator::template rebind
@@ -506,7 +512,10 @@ struct default_r_c_shortest_paths_visitor
   template<class Label, class Graph>
   void on_label_not_dominated( const Label&, const Graph& ) {}
   template<class Queue, class Graph>             
-  bool on_enter_loop(const Queue& queue, const Graph& graph) {return true;}
+  bool on_enter_loop(const Queue&, const Graph&) {return true;}
+
+private:
+  default_r_c_shortest_paths_visitor& operator=(const default_r_c_shortest_paths_visitor&);
 }; // default_r_c_shortest_paths_visitor
 
 
@@ -778,5 +787,9 @@ void check_r_c_path( const Graph& g,
 } // check_path
 
 } // namespace
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_R_C_SHORTEST_PATHS_HPP

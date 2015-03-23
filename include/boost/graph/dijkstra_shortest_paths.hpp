@@ -207,6 +207,8 @@ namespace boost {
       BinaryFunction m_combine;
       BinaryPredicate m_compare;
       D m_zero;
+    private:
+      dijkstra_bfs_visitor& operator=(const dijkstra_bfs_visitor&);
     };
 
   } // namespace detail

@@ -34,6 +34,11 @@
 #include <boost/xpressive/xpressive_static.hpp>
 #include <boost/foreach.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
 
   template <typename directed_category>
@@ -787,6 +792,9 @@ class mutate_graph_impl : public mutate_graph
   std::string node_id_prop_;
   std::map<node_t, bgl_vertex_t> bgl_nodes;
   std::map<edge_t, bgl_edge_t> bgl_edges;
+
+ private:
+  mutate_graph_impl& operator=(const mutate_graph_impl&);
 };
 
 template<typename Directed,
@@ -890,6 +898,9 @@ class mutate_graph_impl<compressed_sparse_row_graph<Directed, VertexProperty, Ed
   std::vector<std::pair<bgl_vertex_t, bgl_vertex_t> > edges_to_add;
   std::map<node_t, bgl_vertex_t> bgl_nodes;
   std::map<edge_t, bgl_edge_t> bgl_edges;
+
+ private:
+  mutate_graph_impl& operator=(const mutate_graph_impl&);
 };
 
 } } } // end namespace boost::detail::graph
@@ -953,6 +964,10 @@ bool read_graphviz(std::istream& in, MutableGraph& graph,
 
 #ifdef BOOST_GRAPH_USE_MPI
 #  include <boost/graph/distributed/graphviz.hpp>
+#endif
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
 #endif
 
 #endif // BOOST_GRAPHVIZ_HPP

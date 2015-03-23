@@ -41,6 +41,12 @@
 #include <boost/graph/iteration_macros.hpp>
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
   
   // Default print_callback
@@ -677,7 +683,7 @@ namespace boost {
              typename VertexEquivalencePredicate, 
              typename SubGraphIsoMapCallback,
              problem_selector problem_selection>
-    bool match(const Graph1& graph1, const Graph2& graph2, 
+    bool match(const Graph1&, const Graph2& graph2, 
                SubGraphIsoMapCallback user_callback, const VertexOrder1& vertex_order1, 
                state<Graph1, Graph2, IndexMap1, IndexMap2,
                EdgeEquivalencePredicate, VertexEquivalencePredicate,
@@ -756,6 +762,9 @@ namespace boost {
       }
 
       const Graph& graph_;
+
+    private:
+      vertex_in_out_degree_cmp& operator=(const vertex_in_out_degree_cmp&);
     };
 
 
@@ -776,6 +785,9 @@ namespace boost {
 
       const Graph& graph_;
       FrequencyMap freq_;
+
+    private:
+      vertex_frequency_degree_cmp& operator=(const vertex_frequency_degree_cmp&);
     };
 
     
@@ -1224,6 +1236,10 @@ namespace boost {
 
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #ifdef BOOST_ISO_INCLUDED_ITER_MACROS
 #undef BOOST_ISO_INCLUDED_ITER_MACROS

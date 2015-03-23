@@ -114,6 +114,8 @@ struct max_clique_visitor
         maximum = max BOOST_PREVENT_MACRO_SUBSTITUTION (maximum, p.size());
     }
     std::size_t& maximum;
+private:
+    max_clique_visitor& operator=(const max_clique_visitor&);
 };
 
 inline max_clique_visitor find_max_clique(std::size_t& max)

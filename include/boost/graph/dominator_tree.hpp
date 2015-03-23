@@ -43,6 +43,8 @@ namespace boost {
       }
 
     private :
+      time_stamper_with_vertex_vector& operator=(const time_stamper_with_vertex_vector&);
+
       time_stamper<TimeMap, TimeT, Tag> timeStamper_;
       VertexVector& v_;
     };
@@ -207,6 +209,9 @@ namespace boost {
     public :
 
       PredMap samedomMap;
+
+    private:
+      dominator_visitor& operator=(const dominator_visitor&);
     };
 
   } // namespace detail

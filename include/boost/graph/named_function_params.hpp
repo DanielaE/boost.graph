@@ -150,6 +150,8 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
     template <typename PType>
     bgl_named_params<PType, vertex_color_t, self>
     vertex_color_map(const PType& p) const {return this->color_map(p);}
+  private:
+    bgl_named_params& operator=(const bgl_named_params&);
   };
 
 #define BOOST_BGL_ONE_PARAM_REF(name, key) \
@@ -718,6 +720,8 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
       const G& g;
       get_default_starting_vertex_t(const G& g): g(g) {}
       result_type operator()() const {return get_default_starting_vertex(g);}
+    private:
+      get_default_starting_vertex_t& operator=(const get_default_starting_vertex_t&);
     };
 
     // Wrapper to avoid instantiating numeric_limits when users provide distance_inf value manually

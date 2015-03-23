@@ -29,6 +29,13 @@
 #include <vector>
 #include <utility>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4510) // default constructor could not be generated
+# pragma warning(disable: 4512) // assignment operator could not be generated
+# pragma warning(disable: 4610) // class can never be instantiated - user defined constructor required
+#endif
+
 namespace boost {
 
   template <class Visitor, class Graph>
@@ -356,6 +363,10 @@ namespace boost {
 
 #ifdef BOOST_GRAPH_USE_MPI
 #  include <boost/graph/distributed/depth_first_search.hpp>
+#endif
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
 #endif
 
 #endif

@@ -191,6 +191,8 @@ class mutate_graph_impl : public mutate_graph
         const std::string& m_value_type;
         const char** m_type_names;
         bool& m_type_found;
+
+        put_property& operator=(const put_property&);
     };
 
 protected:
@@ -198,6 +200,8 @@ protected:
     dynamic_properties& m_dp;
     typedef mpl::vector<bool, int, long, float, double, std::string> value_types;
     static const char* m_type_names[];
+
+    mutate_graph_impl& operator=(const mutate_graph_impl&);
 };
 
 template<typename MutableGraph>
@@ -230,6 +234,8 @@ private:
     const std::type_info &m_type;
     const char** m_type_names;
     std::string &m_type_name;
+
+    get_type_name& operator=(const get_type_name&);
 };
 
 
