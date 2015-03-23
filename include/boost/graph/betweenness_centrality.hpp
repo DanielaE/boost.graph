@@ -24,6 +24,11 @@
 #include <boost/graph/named_function_params.hpp>
 #include <algorithm>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
 namespace detail { namespace graph {
@@ -612,5 +617,9 @@ central_point_dominance(const Graph& g, CentralityMap centrality
 }
 
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_BRANDES_BETWEENNESS_CENTRALITY_HPP

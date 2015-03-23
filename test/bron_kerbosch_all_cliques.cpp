@@ -43,6 +43,7 @@ struct clique_validator
                 }
             }
         }
+        (void)g;
     }
 };
 

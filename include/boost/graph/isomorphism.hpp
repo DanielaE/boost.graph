@@ -23,6 +23,14 @@
 #include <boost/graph/iteration_macros.hpp>
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+# pragma warning(disable: 4715) // not all control paths return a value
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -190,7 +198,7 @@ namespace boost {
                                                   );
         size_type n = 0;
         for (vertex_iter v = dfs_vertices.begin(); v != dfs_vertices.end(); ++v)
-          dfs_num[*v] = n++;
+          dfs_num[*v] = static_cast<int>(n++);
         
         sort(ordered_edges, edge_cmp(G1, dfs_num));
         
@@ -254,11 +262,11 @@ G2_loop_k:    ++G2_verts.first;
             {
               vertex1_t vk = dfs_vertices[dfs_num_k];
               num_edges_on_k -= 
-                count_if(adjacent_vertices(f[vk], G2), make_indirect_pmap(in_S));
+                static_cast<int>(count_if(adjacent_vertices(f[vk], G2), make_indirect_pmap(in_S)));
                   
               for (int jj = 0; jj < dfs_num_k; ++jj) {
                 vertex1_t j = dfs_vertices[jj];
-                num_edges_on_k -= count(adjacent_vertices(f[j], G2), f[vk]);
+                num_edges_on_k -= static_cast<int>(count(adjacent_vertices(f[j], G2), f[vk]));
               }
             }
                 
@@ -572,6 +580,10 @@ fi_adj_loop_k:++fi_adj.first;
   }
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #ifdef BOOST_ISO_INCLUDED_ITER_MACROS
 #undef BOOST_ISO_INCLUDED_ITER_MACROS

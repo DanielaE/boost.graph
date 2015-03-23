@@ -49,6 +49,11 @@
 #include <boost/graph/dll_import_export.hpp>
 #include <boost/graph/graphviz.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4127) // conditional expression is constant
+# pragma warning(disable: 4702) // unreachable code
+#endif
+
 namespace boost {
 
 namespace read_graphviz_detail {
