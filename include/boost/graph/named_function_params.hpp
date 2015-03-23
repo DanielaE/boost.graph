@@ -25,6 +25,11 @@
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4172) // returning address of local variable or temporary
+#endif
+
 namespace boost {
 
   struct parity_map_t { };
@@ -742,5 +747,9 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
 } // namespace boost
 
 #undef BOOST_BGL_DECLARE_NAMED_PARAMS
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_NAMED_FUNCTION_PARAMS_HPP

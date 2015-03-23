@@ -21,6 +21,11 @@
 #include <cmath> // for std::sqrt and std::fabs
 #include <functional>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
 struct square_distance_attractive_force {
@@ -435,6 +440,10 @@ fruchterman_reingold_force_directed_layout
 
 #ifdef BOOST_GRAPH_USE_MPI
 #  include <boost/graph/distributed/fruchterman_reingold.hpp>
+#endif
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
 #endif
 
 #endif // BOOST_GRAPH_FRUCHTERMAN_REINGOLD_FORCE_DIRECTED_LAYOUT_HPP

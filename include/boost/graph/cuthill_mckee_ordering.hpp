@@ -16,6 +16,10 @@
 #include <boost/graph/graph_utility.hpp>
 #include <algorithm>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
 
 /*
   (Reverse) Cuthill-McKee Algorithm for matrix reordering
@@ -51,7 +55,7 @@ namespace boost {
       }
     protected:
       OutputIterator *permutation;
-      int index_begin;
+      size_t index_begin;
       Buffer *Qptr;
       DegreeMap degree;
     };
@@ -184,5 +188,8 @@ namespace boost {
   { return cuthill_mckee_ordering(G, permutation, get(vertex_index, G)); }
 } // namespace boost
 
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_CUTHILL_MCKEE_HPP

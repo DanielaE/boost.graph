@@ -26,6 +26,11 @@
 
 #include <boost/graph/graph_traits.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4996) // 'sscanf': This function may be unsafe
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -50,7 +55,7 @@ int read_dimacs_max_flow_internal(Graph& g,
 
   std::vector<vertex_descriptor> verts;
 
-  long m, n,                    /*  number of edges and nodes */
+  long m = 0, n = 0,            /*  number of edges and nodes */
     i, head, tail, cap;
 
   long no_lines=0,              /* no of current input line */
@@ -306,5 +311,9 @@ int read_dimacs_min_cut(Graph& g,
 }
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_READ_DIMACS_HPP

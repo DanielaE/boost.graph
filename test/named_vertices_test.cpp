@@ -13,6 +13,10 @@
 #include <string>
 #include <iostream>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
+
 #ifdef BOOST_NO_EXCEPTIONS
 void
 boost::throw_exception(std::exception const& ex)

@@ -25,6 +25,11 @@
 #include <boost/property_map/shared_array_property_map.hpp>
 #include <boost/test/minimal.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 bool was_common_subgraph_found = false, output_graphs = false;
 std::vector<std::string> simple_subgraph_list;
 
@@ -277,7 +282,7 @@ bool has_subgraph_string(std::string set_string) {
 int test_main (int argc, char *argv[]) {
   int vertices_to_create = 10;
   int max_edges_per_vertex = 2;
-  std::size_t random_seed = time(0);
+  uint32_t random_seed = static_cast<uint32_t>(time(0));
   
   if (argc > 1) {
     vertices_to_create = boost::lexical_cast<int>(argv[1]);
@@ -292,7 +297,7 @@ int test_main (int argc, char *argv[]) {
   }
   
   if (argc > 4) {
-    random_seed = boost::lexical_cast<std::size_t>(argv[4]);
+    random_seed = boost::lexical_cast<uint32_t>(argv[4]);
   }
   
   boost::minstd_rand generator(random_seed);

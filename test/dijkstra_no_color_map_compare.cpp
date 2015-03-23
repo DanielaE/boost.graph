@@ -29,6 +29,11 @@
 #define EDGE_NOT_RELAXED 5
 #define FINISH_VERTEX 6
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+#endif
+
 template <typename Graph>
 void run_dijkstra_test(const Graph& graph)
 {
@@ -73,7 +78,7 @@ int test_main(int argc, char* argv[])
 
   int vertices_to_create = 10; 
   int edges_to_create = 500;
-  std::size_t random_seed = time(0);
+  unsigned random_seed = static_cast<unsigned>(time(0));
   
   if (argc > 1) {
     vertices_to_create = lexical_cast<int>(argv[1]);
@@ -84,7 +89,7 @@ int test_main(int argc, char* argv[])
   }
   
   if (argc > 3) {
-    random_seed = lexical_cast<std::size_t>(argv[3]);
+    random_seed = lexical_cast<unsigned>(argv[3]);
   }
 
   minstd_rand generator(random_seed);
