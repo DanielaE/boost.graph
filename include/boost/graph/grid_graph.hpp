@@ -33,6 +33,12 @@
 #define BOOST_GRID_GRAPH_TRAITS_T \
   typename graph_traits<BOOST_GRID_GRAPH_TYPE >
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4702) // unreachable code
+# pragma warning(disable: 4701) // potentially uninitialized local variable
+#endif
+
 namespace boost {
 
   // Class prototype for grid_graph
@@ -264,6 +270,7 @@ namespace boost {
   private:
     typedef boost::array<bool, Dimensions> WrapDimensionArray;
     grid_graph() { };
+    grid_graph& operator=(const grid_graph&);
 
   public:
 
@@ -1007,6 +1014,10 @@ namespace boost {
   }; // grid_graph
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #undef BOOST_GRID_GRAPH_TYPE
 #undef BOOST_GRID_GRAPH_TEMPLATE_PARAMS

@@ -98,6 +98,8 @@ namespace boost {
       int eccen;
       mutable value_type w;
       DegreeMap degree;
+
+      rcm_queue& operator=(const rcm_queue&);
     };
 
 
@@ -141,7 +143,7 @@ namespace boost {
       if (get(color, *ui) != Color::red()) put(color, *ui, Color::white());
     breadth_first_visit(G, u, buffer(Q).color_map(color));
 
-    ecc = Q.eccentricity(); 
+    ecc = static_cast<int>(Q.eccentricity()); 
     return Q.spouse();
   }
 
@@ -184,6 +186,8 @@ public:
     return out_degree(v, m_g);
   }
 private:
+  out_degree_property_map& operator=(const out_degree_property_map&);
+
   const Graph& m_g;
 };
 template <typename Graph>

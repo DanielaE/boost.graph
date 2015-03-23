@@ -12,6 +12,7 @@
 #define BOOST_GRAPH_DETAIL_EDGE_HPP
 
 #include <iosfwd>
+#include <boost/functional/hash.hpp>
 
 namespace boost {
 

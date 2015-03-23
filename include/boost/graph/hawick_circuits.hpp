@@ -143,6 +143,8 @@ private:
         return true;
     }
 
+    hawick_circuits_from& operator=(const hawick_circuits_from&);
+
 public:
     hawick_circuits_from(Graph const& graph, Visitor& visitor,
                          VertexIndexMap const& vim,

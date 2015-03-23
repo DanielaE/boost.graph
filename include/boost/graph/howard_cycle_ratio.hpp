@@ -426,6 +426,8 @@ namespace boost {
 
       vcol_t m_colcv, m_col_bfs; //Color maps
       vertex_t m_sink; //To convert any graph to "good"
+
+      mcr_howard& operator=(const mcr_howard&);
     };
 
     /*! \class mcr_howard1
@@ -459,6 +461,8 @@ namespace boost {
 
     private:
       typename inhr_t::critical_cycle_t m_cc; //Critical cycle
+
+      mcr_howard1& operator=(const mcr_howard1&);
     };
 
     /*!

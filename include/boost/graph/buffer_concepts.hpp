@@ -13,6 +13,13 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4510) // default constructor could not be generated
+# pragma warning(disable: 4512) // assignment operator could not be generated
+# pragma warning(disable: 4610) // class can never be instantiated - user defined constructor required
+#endif
+
 namespace boost {
 
   BOOST_concept(Buffer, (B))
@@ -87,5 +94,9 @@ namespace boost {
   };
 
 } // end `namespace boost`
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // !BOOST_GRAPH_BUFFER_CONCEPTS_HPP

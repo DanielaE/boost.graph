@@ -69,6 +69,10 @@
   bidirectional code... it is awful similar.
  */
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
 
 namespace boost {
 
@@ -2801,6 +2805,9 @@ namespace boost {
 
 }
 
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_DETAIL_DETAIL_ADJACENCY_LIST_CCT
 

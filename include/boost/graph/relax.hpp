@@ -33,6 +33,8 @@ namespace boost {
        if (b == inf) return inf;
        return a + b;
       }
+    private:
+      closed_plus& operator=(const closed_plus&);
     };
     
     template <class Graph, class WeightMap, 

@@ -24,6 +24,11 @@
 #include <boost/graph/named_function_params.hpp>
 #include <algorithm>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
 namespace detail { namespace graph {
@@ -93,6 +98,8 @@ namespace detail { namespace graph {
     }
 
   private:
+    brandes_dijkstra_visitor& operator=(const brandes_dijkstra_visitor&);
+
     std::stack<vertex_descriptor>& ordered_vertices;
     WeightMap weight;
     IncomingMap incoming;
@@ -200,6 +207,8 @@ namespace detail { namespace graph {
       }
 
     private:
+      visitor_type& operator=(const visitor_type&);
+
       IncomingMap incoming;
       DistanceMap distance;
       PathCountMap path_count;
@@ -612,5 +621,9 @@ central_point_dominance(const Graph& g, CentralityMap centrality
 }
 
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_BRANDES_BETWEENNESS_CENTRALITY_HPP

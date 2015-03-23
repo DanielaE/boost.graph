@@ -25,6 +25,11 @@
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4172) // returning address of local variable or temporary
+#endif
+
 namespace boost {
 
   struct parity_map_t { };
@@ -150,6 +155,8 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
     template <typename PType>
     bgl_named_params<PType, vertex_color_t, self>
     vertex_color_map(const PType& p) const {return this->color_map(p);}
+  private:
+    bgl_named_params& operator=(const bgl_named_params&);
   };
 
 #define BOOST_BGL_ONE_PARAM_REF(name, key) \
@@ -718,6 +725,8 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
       const G& g;
       get_default_starting_vertex_t(const G& g): g(g) {}
       result_type operator()() const {return get_default_starting_vertex(g);}
+    private:
+      get_default_starting_vertex_t& operator=(const get_default_starting_vertex_t&);
     };
 
     // Wrapper to avoid instantiating numeric_limits when users provide distance_inf value manually
@@ -734,5 +743,9 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
 } // namespace boost
 
 #undef BOOST_BGL_DECLARE_NAMED_PARAMS
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_NAMED_FUNCTION_PARAMS_HPP

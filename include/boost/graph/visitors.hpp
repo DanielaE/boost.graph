@@ -207,6 +207,8 @@ namespace boost {
     }
     TimeMap m_time_pa;
     TimeT& m_time;
+  private:
+    time_stamper& operator=(const time_stamper&);
   };
   template <class TimeMap, class TimeT, class Tag>
   time_stamper<TimeMap, TimeT, Tag>

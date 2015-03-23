@@ -19,6 +19,11 @@
 #include <boost/serialization/collections_load_imp.hpp>
 #include <boost/serialization/split_free.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost { 
 
 namespace serialization {
@@ -42,8 +47,8 @@ inline void save(
   typedef adjacency_list<OEL,VL,D,VP,EP,GP,EL> Graph;
   typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
 
-  int V = num_vertices(graph);
-  int E = num_edges(graph);
+  size_t V = num_vertices(graph);
+  size_t E = num_edges(graph);
   ar << BOOST_SERIALIZATION_NVP(V);
   ar << BOOST_SERIALIZATION_NVP(E);
 
@@ -112,5 +117,8 @@ inline void serialize(
 }//serialization
 }//boost
 
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // ADJ_LIST_SERIALIZE_HPP

@@ -21,7 +21,10 @@
 #include <set>
 #include <map>
 
-
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4244) // conversion from 'size_t' to 'double', possible loss of data
+#endif
 
 namespace boost
 {
@@ -246,5 +249,9 @@ namespace boost
   }
 
 }
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // __IS_STRAIGHT_LINE_DRAWING_HPP__

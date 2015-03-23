@@ -17,6 +17,12 @@
 #include <boost/mpl/if.hpp>
 #include <boost/graph/iteration_macros.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+#endif
+
 namespace boost {
 
 template<typename Topology,
@@ -32,5 +38,9 @@ random_graph_layout
 }
 
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_RANDOM_LAYOUT_HPP

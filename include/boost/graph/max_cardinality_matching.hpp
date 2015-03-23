@@ -10,6 +10,10 @@
 #ifndef BOOST_GRAPH_MAXIMUM_CARDINALITY_MATCHING_HPP
 #define BOOST_GRAPH_MAXIMUM_CARDINALITY_MATCHING_HPP
 
+#ifdef _MSC_VER
+# pragma warning(disable: 4503) // decorated name length exceeded, name was truncated
+#endif
+
 #include <vector>
 #include <list>
 #include <deque>
@@ -23,6 +27,11 @@
 #include <boost/pending/disjoint_sets.hpp>
 #include <boost/assert.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4703) // potentially uninitialized local pointer variable used
+#endif
 
 namespace boost
 {
@@ -513,6 +522,7 @@ namespace boost
     edge_list_t even_edges;
     disjoint_sets< vertex_to_vsize_map_t, vertex_to_vertex_map_t > ds;
 
+    edmonds_augmenting_path_finder& operator=(const edmonds_augmenting_path_finder&);
   };
 
 
@@ -603,6 +613,8 @@ namespace boost
       }
     private:
       const Graph& m_g;
+
+      less_than_by_degree& operator=(const less_than_by_degree&);
     };
 
 
@@ -706,7 +718,8 @@ namespace boost
       
     private:
       bool m_parity;
-      
+ 
+      odd_components_counter& operator=(const odd_components_counter&);
     };
 
   }//namespace detail

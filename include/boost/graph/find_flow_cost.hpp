@@ -11,6 +11,11 @@
 
 #include <boost/graph/iteration_macros.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
 
 template<class Graph, class Capacity, class ResidualCapacity, class Weight>
@@ -47,6 +52,10 @@ find_flow_cost(const Graph &g) {
 
 
 } //boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif /* BOOST_GRAPH_FIND_FLOW_COST_HPP */
 

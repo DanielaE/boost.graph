@@ -27,6 +27,14 @@
 #include <boost/concept/assert.hpp>
 
 #include <boost/concept/detail/concept_def.hpp>
+
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4510) // default constructor could not be generated
+# pragma warning(disable: 4512) // assignment operator could not be generated
+# pragma warning(disable: 4610) // class can never be instantiated - user defined constructor required
+#endif
+
 namespace boost
 {
 // dwa 2003/7/11 -- This clearly shouldn't be necessary, but if
@@ -613,6 +621,11 @@ using boost::concepts::DegreeMeasureConcept;
 
 
 } /* namespace boost */
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
+
 #include <boost/concept/detail/concept_undef.hpp>
 
 #endif /* BOOST_GRAPH_CONCEPTS_H */
