@@ -90,7 +90,7 @@ void testScalability(unsigned numpts)
     typedef set<simple_point<double>, cmpPnt<double> > PointSet;
     typedef vector< Vertex > Container;
 
-    boost::mt19937 rng(time(0));
+    boost::mt19937 rng(static_cast<uint32_t>(time(0)));
     uniform_real<> range(0.01, (numpts * 2));
     variate_generator<boost::mt19937&, uniform_real<> >
         pnt_gen(rng, range);
@@ -153,13 +153,13 @@ void checkAdjList(PositionVec v)
     int idx(0);
     for (boost::tie(vi, ve) = vertices(g); vi != ve; ++vi)
     {
-        Vertex v(*vi);
-        v_pmap[v] = idx;
+        Vertex v_(*vi);
+        v_pmap[v_] = idx;
         idx++;
     }
 
     connectAllEuclidean(g, v, w_pmap,
-        v_pmap, v.size());
+        v_pmap, static_cast<int>(v.size()));
 
     metric_tsp_approx_from_vertex(g,
         *vertices(g).first,
@@ -315,7 +315,7 @@ int main(int argc, char* argv[])
         double len = 0.0;
         metric_tsp_approx(g, make_tsp_tour_len_visitor(g, back_inserter(c), len, weight_map));
     }
-    catch (const bad_graph& e) { caught = true; }
+    catch (const bad_graph&) { caught = true; }
     BOOST_ASSERT(caught);
 
    return 0;

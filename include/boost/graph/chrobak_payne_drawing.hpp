@@ -16,6 +16,10 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/property_map/property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
 
 namespace boost
 {
@@ -28,7 +32,7 @@ namespace boost
              typename VertexTo1DCoordMap>
     void accumulate_offsets(typename graph_traits<Graph>::vertex_descriptor v,
                             std::size_t offset,
-                            const Graph& g,
+                            const Graph&,
                             VertexTo1DCoordMap x,
                             VertexTo1DCoordMap delta_x,
                             VertexToVertexMap left,
@@ -41,13 +45,13 @@ namespace boost
       std::stack<stack_entry> st;
       st.push(stack_entry(v, offset));
       while (!st.empty()) {
-        vertex_descriptor v = st.top().first;
-        std::size_t offset = st.top().second;
+        vertex_descriptor vd = st.top().first;
+        std::size_t offset_ = st.top().second;
         st.pop();
-        if (v != graph_traits<Graph>::null_vertex()) {
-          x[v] += delta_x[v] + offset;
-          st.push(stack_entry(left[v], x[v]));
-          st.push(stack_entry(right[v], x[v]));
+        if (vd != graph_traits<Graph>::null_vertex()) {
+          x[vd] += delta_x[vd] + offset_;
+          st.push(stack_entry(left[vd], x[vd]));
+          st.push(stack_entry(right[vd], x[vd]));
         }
       }
     }
@@ -275,5 +279,9 @@ namespace boost
   
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif //__CHROBAK_PAYNE_DRAWING_HPP__

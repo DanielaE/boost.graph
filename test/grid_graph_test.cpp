@@ -199,10 +199,10 @@ void do_test(minstd_rand& generator) {
 
 int test_main(int argc, char* argv[]) {
 
-  std::size_t random_seed = time(0);
+  uint32_t random_seed = static_cast<uint32_t>(time(0));
 
   if (argc > 1) {
-    random_seed = lexical_cast<std::size_t>(argv[1]);
+    random_seed = lexical_cast<uint32_t>(argv[1]);
   }
 
   minstd_rand generator(random_seed);

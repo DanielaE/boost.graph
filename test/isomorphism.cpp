@@ -31,6 +31,10 @@
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/lexical_cast.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4706) // assignment within conditional expression
+#endif
+
 using namespace boost;
 
 template <typename Generator>

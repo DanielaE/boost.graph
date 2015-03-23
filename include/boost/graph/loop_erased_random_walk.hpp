@@ -55,7 +55,7 @@ namespace boost {
     path.clear();
     path.push_back(s);
     put(color, s, color_gen::gray());
-    while (true) {
+    for (;;) {
       edge_descriptor e = next_edge(s, g);
       vertex_descriptor t = target(e, g);
       color_t t_color = get(color, t);

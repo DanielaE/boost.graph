@@ -91,7 +91,7 @@ private:
   size_type log_base_2(size_type n) // log2 is a macro on some platforms
   {
     size_type leading_zeroes = 0;
-    do {
+    for(;;) {
       size_type next = n << 1;
       if (n == (next >> 1)) {
         ++leading_zeroes;
@@ -99,7 +99,7 @@ private:
       } else {
         break;
       }
-    } while (true);
+    };
     return sizeof(size_type) * CHAR_BIT - leading_zeroes - 1;
   }
 

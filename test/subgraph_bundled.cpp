@@ -14,6 +14,10 @@
 #include <boost/graph/graph_test.hpp>
 #include <boost/graph/iteration_macros.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 using namespace boost;
 
 struct node

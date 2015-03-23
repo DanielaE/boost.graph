@@ -149,7 +149,7 @@ int test_graph(const std::string& dimacs_filename)
 
   // This edge_updater will automatically update the interior edge
   // index of the graph as edges are created.
-  edge_visitor_t edge_updater(get(edge_index, g), num_edges(g));
+  edge_visitor_t edge_updater(get(edge_index, g), static_cast<int>(num_edges(g)));
 
   // The input graph may not be maximal planar, but the Chrobak-Payne straight
   // line drawing needs a maximal planar graph as input. So, we make a copy of

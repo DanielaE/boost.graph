@@ -11,6 +11,11 @@
 
 #include <boost/graph/iteration_macros.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
 
 template<class Graph, class Capacity, class ResidualCapacity, class Weight>
@@ -21,7 +26,7 @@ find_flow_cost(const Graph & g, Capacity capacity, ResidualCapacity residual_cap
     Cost cost = 0;
     BGL_FORALL_EDGES_T(e, g, Graph) {
         if(get(capacity, e) > Cost(0)) {
-            cost +=  (get(capacity, e) - get(residual_capacity, e)) * get(weight, e);
+            cost += static_cast<Cost>((get(capacity, e) - get(residual_capacity, e)) * get(weight, e));
         } 
     }
     return cost;
@@ -47,6 +52,10 @@ find_flow_cost(const Graph &g) {
 
 
 } //boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif /* BOOST_GRAPH_FIND_FLOW_COST_HPP */
 

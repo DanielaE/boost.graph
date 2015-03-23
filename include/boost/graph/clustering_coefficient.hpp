@@ -19,7 +19,7 @@ namespace detail
 {
     template <class Graph>
     inline typename graph_traits<Graph>::degree_size_type
-    possible_edges(const Graph& g, std::size_t k, directed_tag)
+    possible_edges(const Graph&, std::size_t k, directed_tag)
     {
         BOOST_CONCEPT_ASSERT(( GraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::degree_size_type T;

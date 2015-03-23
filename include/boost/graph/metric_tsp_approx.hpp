@@ -37,6 +37,13 @@
 #include <boost/graph/lookup_edge.hpp>
 #include <boost/throw_exception.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4510) // default constructor could not be generated
+# pragma warning(disable: 4512) // assignment operator could not be generated
+# pragma warning(disable: 4610) // class can never be instantiated - user defined constructor required
+#endif
+
 namespace boost
 {
     // Define a concept for the concept-checking library.
@@ -309,5 +316,9 @@ namespace boost
     { return tsp_tour_len_visitor<Graph, WeightMap, OutIter, Length>(g, iter, l, map); }
 
 } //boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_METRIC_TSP_APPROX_HPP

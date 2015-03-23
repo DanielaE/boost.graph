@@ -26,6 +26,11 @@
 #include <boost/graph/detail/augment.hpp>
 #include <boost/graph/find_flow_cost.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
+
 namespace boost {
 
 
@@ -103,7 +108,7 @@ void cycle_canceling_dispatch2(
         ResidualCapacity residual_capacity,
         Pred pred,
         Distance dist,
-        const bgl_named_params<P, T, R>& params) {
+        const bgl_named_params<P, T, R>&) {
     cycle_canceling(g, weight, rev, residual_capacity, pred, dist);
 }
 
@@ -176,6 +181,10 @@ void cycle_canceling(Graph &g) {
 
 
 }
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif /* BOOST_GRAPH_CYCLE_CANCELING_HPP */
 

@@ -25,6 +25,13 @@
 #include <boost/graph/iteration_macros.hpp>
 #include <boost/graph/detail/augment.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
 
@@ -257,5 +264,10 @@ void successive_shortest_path_nonnegative_weights(
 
 
 }//boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
+
 #endif /* BOOST_GRAPH_SUCCESSIVE_SHORTEST_PATH_HPP */
 

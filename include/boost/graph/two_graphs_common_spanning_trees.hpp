@@ -26,6 +26,10 @@
 #include <stack>
 #include <map>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
 
 namespace boost
 {
@@ -54,14 +58,14 @@ namespace detail {
     { mNum = -1; }
 
     template <typename Vertex, typename Graph>
-    void initialize_vertex(const Vertex& u, const Graph& g)
+    void initialize_vertex(const Vertex& u, const Graph&)
     {
       put(mPred, u, u);
       put(mDist, u, -1);
     }
 
     template <typename Vertex, typename Graph>
-    void discover_vertex(const Vertex& u, const Graph& g)
+    void discover_vertex(const Vertex& u, const Graph&)
     {
       put(mDist, u, ++mNum);
       put(mLow, u, get(mDist, u));
@@ -82,7 +86,7 @@ namespace detail {
     }
 
     template <typename Vertex, typename Graph>
-    void finish_vertex(const Vertex& u, const Graph& g)
+    void finish_vertex(const Vertex& u, const Graph&)
     {
       Vertex parent = get(mPred, u);
       if(get(mLow, u) > get(mDist, parent))
@@ -108,7 +112,7 @@ namespace detail {
     cycle_finder(Buffer* buffer)
       : mBuffer(buffer) { }
     template <typename Edge, typename Graph>
-    void operator()(const Edge& e, const Graph& g)
+    void operator()(const Edge& e, const Graph&)
       {
         if(mBuffer)
           mBuffer->push(e);
@@ -174,7 +178,7 @@ namespace detail {
 
     typedef typename Seq::size_type seq_size_type;
 
-    int edges = num_vertices(iG) - 1;
+    int edges = static_cast<int>(num_vertices(iG) - 1);
 //
 //  [ Michele Caini ]
 //
@@ -624,9 +628,9 @@ two_graphs_common_spanning_trees
 
   bimap_type iG_bimap, vG_bimap;
   for(order_size_type i = 0; i < iG_map.size(); ++i)
-    iG_bimap.insert(bimap_value(i, iG_map[i]));
+    iG_bimap.insert(bimap_value(static_cast<int>(i), iG_map[i]));
   for(order_size_type i = 0; i < vG_map.size(); ++i)
-    vG_bimap.insert(bimap_value(i, vG_map[i]));
+    vG_bimap.insert(bimap_value(static_cast<int>(i), vG_map[i]));
 
   edge_iterator current, last;
   boost::tuples::tie(current, last) = edges(iG);
@@ -859,5 +863,8 @@ two_graphs_common_spanning_trees
 
 } // namespace boost
 
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_TWO_GRAPHS_COMMON_SPANNING_TREES_HPP

@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(using_named_parameters_and_bundled_params_on_edmonds_karp_m
 
   // The "named parameter version" (producing errors)
   // I chose to show the error with edmonds_karp_max_flow().
-  int flow_value = edmonds_karp_max_flow(g, s, t,
+  double flow_value = edmonds_karp_max_flow(g, s, t,
     boost::capacity_map(capacity)
     .residual_capacity_map(residual_capacity)
     .reverse_edge_map(rev)
