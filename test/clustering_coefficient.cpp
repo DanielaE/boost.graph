@@ -90,6 +90,7 @@ void test_undirected()
     // within some tolerance (like 1/10 million).
     double coef = mean_clustering_coefficient(g, cm);
     BOOST_ASSERT((coef - (7.0f / 15.0f)) < 1e-7f);
+    (void)coef;
 }
 
 int

@@ -134,7 +134,7 @@ bool test(int n, double p)
 
 int main()
 {
-  srand(time(0));
+  srand(static_cast<unsigned>(time(0)));
   static class {
   public:
     double operator()() {

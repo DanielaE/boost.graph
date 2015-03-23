@@ -24,6 +24,11 @@
 #include <boost/utility/result_of.hpp>
 #include <boost/graph/iteration_macros.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -50,7 +55,7 @@ namespace boost {
       }
 
       template < typename Vertex, typename Graph >
-      void initialize_vertex(Vertex u, const Graph & g)
+      void initialize_vertex(Vertex u, const Graph &)
       {
         typedef typename boost::property_traits<ParityMap>::value_type parity_type;
         typedef typename boost::property_traits<InternalParityMap>::value_type internal_parity_type;
@@ -244,6 +249,10 @@ namespace graph {
     }
 } // end `namespace graph`
 } // end `namespace boost`
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #include <boost/graph/iteration_macros_undef.hpp>
 

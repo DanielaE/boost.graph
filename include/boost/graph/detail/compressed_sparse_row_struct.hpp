@@ -45,6 +45,10 @@
 #include <boost/static_assert.hpp>
 #include <boost/functional/hash.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized variable used
+#endif
 namespace boost {
 
 namespace detail {
@@ -643,5 +647,9 @@ namespace detail {
   };
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_COMPRESSED_SPARSE_ROW_STRUCT_HPP

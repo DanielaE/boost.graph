@@ -106,7 +106,7 @@ void check_bipartite (const Graph& g, IndexMap index_map, bool is_bipartite)
   }
 }
 
-int test_main (int argc, char **argv)
+int test_main (int, char **)
 {
   typedef boost::adjacency_list <boost::vecS, boost::vecS, boost::undirectedS> vector_graph_t;
   typedef boost::adjacency_list <boost::listS, boost::listS, boost::undirectedS> list_graph_t;

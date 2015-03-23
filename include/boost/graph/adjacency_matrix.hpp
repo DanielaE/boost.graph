@@ -35,6 +35,11 @@
 #include <boost/property_map/transform_value_property_map.hpp>
 #include <boost/property_map/function_property_map.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -75,7 +80,7 @@ namespace boost {
 
     template <typename EdgeProxy>
     bool get_edge_exists(const EdgeProxy& edge_proxy, ...) {
-      return edge_proxy;
+      return edge_proxy != 0;
     }
     template <typename EdgeProxy>
     EdgeProxy& set_edge_exists(EdgeProxy& edge_proxy, bool flag, ...) {
@@ -1093,19 +1098,19 @@ namespace boost {
     typedef typename lookup_property_from_edge<boost::mpl::false_>::result_type single_nonconst_type;
     typedef typename lookup_property_from_edge<boost::mpl::true_>::result_type single_const_type;
 
-    static type get_nonconst(adjacency_matrix<D, VP, EP, GP, A>& g, Tag tag) {
+    static type get_nonconst(adjacency_matrix<D, VP, EP, GP, A>&, Tag tag) {
       return type(tag);
     }
 
-    static const_type get_const(const adjacency_matrix<D, VP, EP, GP, A>& g, Tag tag) {
+    static const_type get_const(const adjacency_matrix<D, VP, EP, GP, A>&, Tag tag) {
       return const_type(tag);
     }
 
-    static single_nonconst_type get_nonconst_one(adjacency_matrix<D, VP, EP, GP, A>& g, Tag tag, edge_descriptor e) {
+    static single_nonconst_type get_nonconst_one(adjacency_matrix<D, VP, EP, GP, A>&, Tag tag, edge_descriptor e) {
       return lookup_one_property<EP, Tag>::lookup(*static_cast<EP*>(e.get_property()), tag);
     }
 
-    static single_const_type get_const_one(const adjacency_matrix<D, VP, EP, GP, A>& g, Tag tag, edge_descriptor e) {
+    static single_const_type get_const_one(const adjacency_matrix<D, VP, EP, GP, A>&, Tag tag, edge_descriptor e) {
       return lookup_one_property<const EP, Tag>::lookup(*static_cast<const EP*>(e.get_property()), tag);
     }
   };
@@ -1235,5 +1240,9 @@ struct graph_mutability_traits<adjacency_matrix<D, VP, EP, GP, A> > {
 
 
 } // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_ADJACENCY_MATRIX_HPP

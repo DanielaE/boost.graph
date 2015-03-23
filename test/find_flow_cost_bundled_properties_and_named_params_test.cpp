@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(using_bundled_properties_with_find_max_flow_test)
       pred,dist,dist_prev);
 
   // The "bundled properties" version (producing errors)
-  int flow_cost = boost::find_flow_cost(g,capacity,residual_capacity,cost);
+  float flow_cost = boost::find_flow_cost(g,capacity,residual_capacity,cost);
   BOOST_CHECK_EQUAL(flow_cost, 29);
 }
 
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(using_named_params_and_bundled_properties_with_find_max_flo
     pred,dist,dist_prev);
 
   // The  "named parameters" version (with "bundled properties"; producing errors)
-  int flow_cost = boost::find_flow_cost(g,
+  float flow_cost = boost::find_flow_cost(g,
     boost::capacity_map(capacity)
     .residual_capacity_map(residual_capacity)
     .weight_map(cost));
