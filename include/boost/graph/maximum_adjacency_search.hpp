@@ -48,6 +48,15 @@
 
 #include <set>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4510) // default constructor could not be generated
+# pragma warning(disable: 4512) // assignment operator could not be generated
+# pragma warning(disable: 4610) // class can never be instantiated - user defined constructor required
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
   template <class Visitor, class Graph>
   struct MASVisitorConcept {
@@ -315,5 +324,9 @@ maximum_adjacency_search(const Graph& g, WeightMap weights, MASVisitor vis, cons
 } // end namespace boost
 
 #include <boost/graph/iteration_macros_undef.hpp>
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_MAXIMUM_ADJACENCY_SEARCH_H

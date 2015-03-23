@@ -136,11 +136,11 @@ int main(int, char **)
     "Ithaca", "Binghamton", "Woodstock", "New York"
   };
   location locations[] = { // lat/long
-    {42.73, 73.68}, {44.28, 73.99}, {44.70, 73.46},
-    {44.93, 74.89}, {43.97, 75.91}, {43.10, 75.23},
-    {43.04, 76.14}, {43.17, 77.61}, {42.89, 78.86},
-    {42.44, 76.50}, {42.10, 75.91}, {42.04, 74.11},
-    {40.67, 73.94}
+    {42.73f, 73.68f}, {44.28f, 73.99f}, {44.70f, 73.46f},
+    {44.93f, 74.89f}, {43.97f, 75.91f}, {43.10f, 75.23f},
+    {43.04f, 76.14f}, {43.17f, 77.61f}, {42.89f, 78.86f},
+    {42.44f, 76.50f}, {42.10f, 75.91f}, {42.04f, 74.11f},
+    {40.67f, 73.94f}
   };
   edge edge_array[] = {
     edge(Troy,Utica), edge(Troy,LakePlacid),
@@ -174,7 +174,7 @@ int main(int, char **)
   
   
   // pick random start/goal
-  boost::minstd_rand gen(time(0));
+  boost::minstd_rand gen(static_cast<uint32_t>(time(0)));
   vertex start = gen() % num_vertices(g);
   vertex goal = gen() % num_vertices(g);
   
@@ -199,7 +199,7 @@ int main(int, char **)
        visitor(astar_goal_visitor<vertex>(goal)).distance_inf(my_float((std::numeric_limits<float>::max)())));
   
   
-  } catch(found_goal fg) { // found a path to the goal
+  } catch(found_goal) { // found a path to the goal
     list<vertex> shortest_path;
     for(vertex v = goal;; v = p[v]) {
       shortest_path.push_front(v);

@@ -58,7 +58,7 @@ struct two_bit_color_map
     : n(n), index(index), data(new unsigned char[(n + elements_per_char - 1) / elements_per_char])
   {
     // Fill to white
-    std::fill(data.get(), data.get() + (n + elements_per_char - 1) / elements_per_char, 0);
+    std::fill(data.get(), data.get() + (n + elements_per_char - 1) / elements_per_char, static_cast<unsigned char>(0u));
   }
 };
 

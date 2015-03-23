@@ -36,6 +36,11 @@
 #include <boost/graph/betweenness_centrality.hpp>
 #include <boost/graph/kruskal_min_spanning_tree.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 typedef boost::adjacency_list<> GraphT;
 typedef boost::erdos_renyi_iterator<boost::minstd_rand, GraphT> ERGen;
 
@@ -259,7 +264,7 @@ void graph_test(const OrigGraph& g)
     boost::minstd_rand gen(1);
     if (num_edges(g) != 0) {
       for (std::size_t i = num_edges(g) - 1; i > 0; --i) {
-        std::size_t scrambled = boost::uniform_int<>(0, i)(gen);
+        std::size_t scrambled = boost::uniform_int<>(0, static_cast<int>(i))(gen);
         if (scrambled == i) continue;
         using std::swap;
         swap(sources[i], sources[scrambled]);

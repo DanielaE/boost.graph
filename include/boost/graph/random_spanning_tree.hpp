@@ -22,6 +22,12 @@
 #include <boost/graph/properties.hpp>
 #include <boost/graph/named_function_params.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4701) // potentially uninitialized local variable used
+# pragma warning(disable: 4913) // user defined binary operator ',' exists but ...
+#endif
+
 namespace boost {
 
   namespace detail {
@@ -105,5 +111,9 @@ namespace boost {
 }
 
 #include <boost/graph/iteration_macros_undef.hpp>
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_RANDOM_SPANNING_TREE_HPP

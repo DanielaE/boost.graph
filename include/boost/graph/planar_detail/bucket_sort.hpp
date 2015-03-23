@@ -92,7 +92,7 @@ namespace boost
         ForwardIterator max_by_rank = std::max_element(begin, end, cmp);
         if (max_by_rank == end)
           return;
-        range = get(rank, *max_by_rank) + 1;
+        range = static_cast<SizeType>(get(rank, *max_by_rank) + 1);
       }
 
     vector_of_vectors_t temp_values(range);

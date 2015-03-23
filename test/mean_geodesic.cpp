@@ -76,7 +76,7 @@ void test_undirected()
     floyd_warshall_all_pairs_shortest_paths(g, dm, weight_map(wm));
     double geo1 = all_mean_geodesics(g, dm, cm);
     double geo2 = small_world_distance(g, cm);
-
+    (void)geo1;(void)geo2;
     BOOST_ASSERT(cm[v[0]] == double(5)/4);
     BOOST_ASSERT(cm[v[1]] == double(7)/4);
     BOOST_ASSERT(cm[v[2]] == double(7)/4);
@@ -117,8 +117,10 @@ void test_directed()
     floyd_warshall_all_pairs_shortest_paths(g, dm, weight_map(wm));
     double geo1 = all_mean_geodesics(g, dm, cm);
     double geo2 = small_world_distance(g, cm);
+    (void)geo1;(void)geo2;
 
     double inf = numeric_values<double>::infinity();
+    (void)inf;
     BOOST_ASSERT(cm[v[0]] == inf);
     BOOST_ASSERT(cm[v[1]] == inf);
     BOOST_ASSERT(cm[v[2]] == inf);

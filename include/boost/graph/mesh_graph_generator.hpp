@@ -16,6 +16,11 @@
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/type_traits/is_same.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
   template<typename Graph>
@@ -154,5 +159,9 @@ namespace boost {
 
 
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_MESH_GENERATOR_HPP

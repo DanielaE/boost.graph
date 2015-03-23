@@ -9,6 +9,10 @@
 // Electron. Lett., 28 April 1983, Volume 19, Issue 9, p.346-347
 
 
+#ifdef _MSC_VER
+#pragma warning(disable:4267)
+#endif
+
 #include <boost/type_traits.hpp>
 #include <boost/concept/requires.hpp>
 #include <boost/assign/std/vector.hpp>
@@ -141,7 +145,7 @@ void two_graphs_common_spanning_trees_test()
 }
 
 
-int test_main ( int argc, char** argv )
+int test_main ( int, char** )
 {
   boost::two_graphs_common_spanning_trees_test();
   return EXIT_SUCCESS;

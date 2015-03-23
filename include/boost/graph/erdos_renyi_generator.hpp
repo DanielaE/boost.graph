@@ -22,6 +22,11 @@
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 
   template<typename RandomGenerator, typename Graph>
@@ -191,5 +196,9 @@ namespace boost {
   };
 
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif // BOOST_GRAPH_ERDOS_RENYI_GENERATOR_HPP
