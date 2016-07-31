@@ -122,7 +122,7 @@ int test_main(int, char* [])
               static_cast<int>(num_cycles));
   make_connected(gVV);
   BOOST_CHECK(connected_components(gVV, gVV_components_pm) == 1);
-  BOOST_CHECK(num_edges(gVV) == num_cycles * cycle_size + num_cycles - 1);
+  BOOST_CHECK(num_edges(gVV) == static_cast<size_t>(num_cycles * cycle_size + num_cycles - 1));
 
   LVgraph_t gLV;
   num_cycles = 20;
@@ -138,7 +138,7 @@ int test_main(int, char* [])
               static_cast<int>(num_cycles));
   make_connected(gLV);
   BOOST_CHECK(connected_components(gLV, gLV_components_pm) == 1);
-  BOOST_CHECK(num_edges(gLV) == num_cycles * cycle_size + num_cycles - 1);
+  BOOST_CHECK(num_edges(gLV) == static_cast<size_t>(num_cycles * cycle_size + num_cycles - 1));
 
   VLgraph_t gVL;
   num_cycles = 30;
@@ -153,7 +153,7 @@ int test_main(int, char* [])
   BOOST_CHECK(connected_components(gVL, make_vector_property_map<int>(get(vertex_index,gVL)))
               == 1
               );
-  BOOST_CHECK(num_edges(gVL) == num_cycles * cycle_size + num_cycles - 1);
+  BOOST_CHECK(num_edges(gVL) == static_cast<size_t>(num_cycles * cycle_size + num_cycles - 1));
 
   LLgraph_t gLL;
   num_cycles = 40;
@@ -167,7 +167,7 @@ int test_main(int, char* [])
   BOOST_CHECK(connected_components(gLL, make_vector_property_map<int>(get(vertex_index,gLL)))
               == 1
               );
-  BOOST_CHECK(num_edges(gLL) == num_cycles * cycle_size + num_cycles - 1);
+  BOOST_CHECK(num_edges(gLL) == static_cast<size_t>(num_cycles * cycle_size + num_cycles - 1));
 
   // Now make sure that no edges are added to an already connected graph
   // when you call make_connected again

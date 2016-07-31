@@ -153,8 +153,8 @@ void checkAdjList(PositionVec v)
     int idx(0);
     for (boost::tie(vi, ve) = vertices(g); vi != ve; ++vi)
     {
-        Vertex v(*vi);
-        v_pmap[v] = idx;
+        Vertex v_(*vi);
+        v_pmap[v_] = idx;
         idx++;
     }
 
