@@ -37,19 +37,6 @@
 
 using namespace boost;
 
-template <typename Generator>
-struct random_functor {
-  random_functor(Generator& g) : g(g) { }
-  std::size_t operator()(std::size_t n) {
-    boost::uniform_int<std::size_t> distrib(0, n-1);
-    boost::variate_generator<boost::mt19937&, boost::uniform_int<std::size_t> >
-      x(g, distrib);
-    return x();
-  }
-  Generator& g;
-  random_functor&operator=(const random_functor&);
-};
-
 template<typename Graph1, typename Graph2>
 void randomly_permute_graph(const Graph1& g1, Graph2& g2)
 {
@@ -62,12 +49,11 @@ void randomly_permute_graph(const Graph1& g1, Graph2& g2)
   typedef typename graph_traits<Graph1>::edge_iterator edge_iterator;
 
   boost::mt19937 gen;
-  random_functor<boost::mt19937> rand_fun(gen);
 
   // Decide new order
   std::vector<vertex1> orig_vertices;
   std::copy(vertices(g1).first, vertices(g1).second, std::back_inserter(orig_vertices));
-  std::random_shuffle(orig_vertices.begin(), orig_vertices.end(), rand_fun);
+  std::shuffle(orig_vertices.begin(), orig_vertices.end(), gen);
   std::map<vertex1, vertex2> vertex_map;
 
   for (std::size_t i = 0; i < num_vertices(g1); ++i) {
