@@ -65,7 +65,7 @@ bool check_vertex_cleared(Graph& g, Vertex v, ID id)
         break;
       }
 #else
-    found = std::find_if(ai, aiend, std::bind1st(cmp,v));
+    found = std::find_if(ai, aiend, std::bind(cmp,v,std::placeholders::_1));
 #endif
 
     if ( found != aiend ) {
